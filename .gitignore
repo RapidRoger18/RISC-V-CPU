@@ -8,3 +8,6 @@
 #verilog build files
 *.vcd
 *.vvp
+
+#VS code files
+.vscode

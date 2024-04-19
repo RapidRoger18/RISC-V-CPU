@@ -55,16 +55,16 @@ int main() {
 
     const uint8_t n = 150;
 
-    uint8_t elements[150] = {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-
+    //uint8_t elements[150] = {0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+    uint8_t *elements = (uint8_t *) 0x02000008;
     #if defined(__linux__) || defined(__APPLE__) // for host pc
 
         uint8_t final_location = 0;
         uint8_t CPU_DONE = 0;
     #else // for the test device
 
-        #define final_location (* (volatile uint8_t * ) 0x02000004)
-        #define CPU_DONE (* (volatile uint8_t * ) 0x0200000c)
+        #define final_location (* (volatile uint8_t * ) 0x02000000)
+        #define CPU_DONE (* (volatile uint8_t * ) 0x02000004)
         
     #endif
     uint8_t k = 0;
@@ -95,16 +95,20 @@ int main() {
         _put_byte('\n');
 
     #else
-        uint8_t index = 0;
-        //start writing elements to memory from 0x02000010
-        uint8_t *mem_ptr = (uint8_t *) 0x02000010;
-        for (uint8_t i = 0; i < n; i++) {
-            *mem_ptr = elements[index];
-            mem_ptr+=0x1;
-            index++;
-        }
+        // uint8_t index = 0;
+        // //start writing elements to memory from 0x02000010
+        // uint8_t *mem_ptr = (uint8_t *) 0x02000010;
+        // for (uint8_t i = 0; i < n; i++) {
+        //     *mem_ptr = elements[index];
+        //     mem_ptr+=0x1;
+        //     index++;
+        // }
     #endif
-    CPU_DONE = elements[n - 1];
+    for (int i = 0; i < n; ++i) {
+        final_location = elements[i];
+    }
+    // Path Planning Computation Done Flag
+    CPU_DONE = 1;
     #if defined(__linux__) || defined(__APPLE__) // for host pc
         _put_str("N: ");
         _put_value(n);

@@ -1,10 +1,9 @@
-module top (
+module cpu (
     input clk, reset,
     input Ext_MemWrite,
     input [31:0] Ext_WriteData, Ext_DataAdr,
     output MemWrite,
-    output [31:0] WriteData, DataAdr, ReadData,
-    output [31:0] ProgramCounter
+    output [31:0] WriteData, DataAdr, ReadData
 );
 
 // wire lines from other modules
@@ -25,4 +24,3 @@ assign WriteData = (Ext_MemWrite && reset) ? Ext_WriteData : WriteData_rv32;
 assign DataAdr = (reset) ? Ext_DataAdr : DataAdr_rv32;
 
 endmodule
-

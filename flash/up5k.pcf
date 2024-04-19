@@ -1,10 +1,12 @@
-set_io --warn-no-port s1_a 23
-set_io --warn-no-port s1_b 25
-set_io --warn-no-port s1_c 26
-set_io --warn-no-port s1_d 27
-set_io --warn-no-port s1_e 32
-set_io --warn-no-port s1_f 35
-set_io --warn-no-port s1_g 31
-set_io --warn-no-port led_blue 40
-set_io --warn-no-port led_green 39
-set_io --warn-no-port led_red 41
+# CLOCK INPUT
+set_io clk 61
+
+# OUTPUT BUS
+set_io out[0] 28
+set_io out[1] 29
+set_io out[2] 31
+set_io out[3] 32
+set_io out[4] 33
+set_io out[5] 34
+set_io out[6] 35
+set_io out[7] 36
