@@ -1,6 +1,6 @@
 #build files
-*.hex
-*.lss
+#*.hex
+#*.lss
 *.o
 %.elf
 %.bin
