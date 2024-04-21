@@ -1,5 +1,5 @@
 module CPU_driver(
-	input clk,CPU_start,
+	input clk,CPU_start, Mem_write,
 	input [31:0] WriteData, DataAdr, ReadData,                                //Data Mem access for CPU 
 	output reg reset,
 	output reg Ext_MemWrite,
@@ -9,6 +9,7 @@ module CPU_driver(
 reg CPU_state_flag = 0;
 reg CPU_state_state = 0;
 reg CPU_state_flag = 0;
+reg [6:0] index = 0;
 always @(posedge clk) begin
 	if ( CPU_start && !CPU_state_flag) begin                                       //This loop makes sure that the CPU counter is switched only for 8 cycles
 		if( CPU_state_counter == 4 ) begin                                         //i.e., until all required data is stored into memory
