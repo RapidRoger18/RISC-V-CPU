@@ -7,12 +7,12 @@ module CPU_driver(
 	output reg [31:0] Ext_WriteData, Ext_DataAdr
 );
 reg CPU_state_flag = 0;
-reg CPU_state_state = 0;
-reg CPU_state_flag = 0;
+reg CPU_start_state = 0;
+reg [1:0] CPU_state_counter = 0;
 reg [6:0] index = 0;
 always @(posedge clk) begin
 	if ( CPU_start && !CPU_state_flag) begin                                       //This loop makes sure that the CPU counter is switched only for 8 cycles
-		if( CPU_state_counter == 4 ) begin                                         //i.e., until all required data is stored into memory
+		if( CPU_state_counter == 3 ) begin                                         //i.e., until all required data is stored into memory
 			CPU_state_counter <= 0;												   //This will also make sure the CPU is runnig only once for a set of SP and EP
 			CPU_start_state <= 0;
 			CPU_state_flag <= 1;
