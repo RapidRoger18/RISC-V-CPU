@@ -1,5 +1,5 @@
 module CPU_driver(
-	input clk,CPU_start, Mem_write,
+	input clk,CPU_start, MemWrite,
 	input [31:0] WriteData, DataAdr, ReadData,                                //Data Mem access for CPU 
 	output reg reset,
 	output reg Ext_MemWrite,
@@ -45,7 +45,7 @@ always @(posedge clk) begin
 		end 
 		endcase
 	end
-	else if (Mem_write && !reset ) begin
+	else if (MemWrite && !reset ) begin
 		if(DataAdr === 32'h02000000) begin
 			final_output [index] <= WriteData;
 			index <= 1; 
