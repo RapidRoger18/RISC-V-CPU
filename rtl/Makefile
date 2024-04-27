@@ -3,8 +3,8 @@
 BUILD_DIR = build
 PINDEF = up5k.pcf
 DEVICE = up5k
-TOP_MODULE = blink
-TOP_MODULE_FILE = blink.v
+TOP_MODULE = top
+TOP_MODULE_FILE = top.v
 #all v files in the current directory but not in the build directory and except blinky.v
 OTHER_MODULES = $(filter-out $(TOP_MODULE_FILE), $(wildcard *.v))
 
