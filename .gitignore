@@ -3,7 +3,8 @@
 #*.lss
 *.o
 %.elf
-%.bin
+build 
+*.json
 
 #verilog build files
 *.vcd
