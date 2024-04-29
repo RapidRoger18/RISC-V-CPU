@@ -2,9 +2,7 @@
 #*.hex
 #*.lss
 *.o
-%.elf
-build 
-*.json
+%.elf 
 
 #verilog build files
 *.vcd
