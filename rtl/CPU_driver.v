@@ -3,14 +3,16 @@ module CPU_driver(
 	input [31:0] WriteData, DataAdr, ReadData,                                //Data Mem access for CPU 
 	output reg reset,
 	output reg Ext_MemWrite,
-	output reg [7:0] final_output,
+	output reg [3:0] led,
 	output reg [31:0] Ext_WriteData, Ext_DataAdr
 );
 reg CPU_state_flag = 0;
 reg CPU_start_state = 0;
 reg [1:0] CPU_state_counter = 0;
-reg [6:0] index = 0;
+reg [3:0] index = 0, index2 = 0;
 reg [1:0] state = 0;
+reg [3:0] final_output [15:0];
+reg [23:0] counter;
 always @(posedge clk) begin
 	if ( CPU_start && !CPU_state_flag) begin                                       //This loop makes sure that the CPU counter is switched only for 8 cycles
 		if( CPU_state_counter == 3 ) begin                                         //i.e., until all required data is stored into memory
@@ -52,7 +54,12 @@ always @(posedge clk) begin
 			index <= 1; 
 		end
 	end
-
+	if (counter == 2000000) begin
+        led <= final_output[index2];
+		index2 <= index2 + 1;
+        counter <= 0;
+    end
+	else counter <= counter + 1;
 end
 
 endmodule

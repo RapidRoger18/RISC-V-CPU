@@ -5,7 +5,7 @@ set_io clk 61
 set_io CPU_start 25
 
 # OUTPUT BUS
-set_io final_output[0] 28
-set_io final_output[1] 29
-set_io final_output[2] 31
-set_io final_output[3] 32
+set_io led[0] 28
+set_io led[1] 29
+set_io led[2] 31
+set_io led[3] 32

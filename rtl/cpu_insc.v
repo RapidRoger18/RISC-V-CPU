@@ -8,7 +8,6 @@ module cpu (
 
 // wire lines from other modules
 wire [31:0] PC;
-assign ProgramCounter = PC;
 wire [31:0] Instr;
 wire MemWrite_rv32;
 wire [31:0] DataAdr_rv32, WriteData_rv32;
