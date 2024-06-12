@@ -19,6 +19,7 @@ riscv_cpu rvsingle (clk, reset, PC, Instr, MemWrite_rv32, DataAdr_rv32, WriteDat
 instr_mem imem (PC, Instr);
 data_mem dmem (clk, MemWrite, DataAdr, WriteData, ReadData);
 
+
 // output assignments
 assign MemWrite = (Ext_MemWrite && reset) ? 1 : MemWrite_rv32;
 assign WriteData = (Ext_MemWrite && reset) ? Ext_WriteData : WriteData_rv32;
