@@ -1,14 +1,18 @@
-module IO_controller #(parameter ADDR_WIDTH = 32, DATA_WIDTH = 1)(
+module IO_controller #(parameter ADDR_WIDTH = 32, PORT_WIDTH = 6)(
     input                    clk, wr_en,
-    input  [ADDR_WIDTH-1:0]  wr_addr, wr_data,
+    input  [ADDR_WIDTH-1:0]  wr_addr, 
+    input                    wr_data,
     input  [27:0]            GPIO_IN,
     output [27:0]            GPIO_OE,
     output [27:0]            GPIO_OUT,
-    output [DATA_WIDTH-1:0]  rd_data
+    output                   rd_io_data
 );
 
-assign rd_data = GPIO_IN[6];
+assign rd_io_data = GPIO_IN[wr_addr[PORT_WIDTH-1:0] % 28];
 always @(posedge clk) begin
-    assign
+    if (wr_en) begin
+        GPIO_OE[wr_addr[PORT_WIDTH-1:0] ] <= 1;
+        GPIO_OUT[wr_addr[PORT_WIDTH-1:0] ] <= wr_data;
+    end
 end
 endmodule
